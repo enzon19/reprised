@@ -1,12 +1,12 @@
 import { BASE_URL, TRAKT_ID, USER_AGENT } from '$env/static/private';
 
-class TraktEndpoint {
-	#cacheID: string;
+export class TraktEndpoint {
+	#cacheID?: string;
 	#cacheInterval: number;
 	#cacheVersion: number;
 	#endpoint: string;
 
-	constructor(endpoint: string, cacheID: string, cacheInterval: number = -1, cacheVersion = 1) {
+	constructor(endpoint: string, cacheID?: string, cacheInterval: number = -1, cacheVersion = 1) {
 		this.#endpoint = endpoint;
 		this.#cacheID = cacheID;
 		this.#cacheInterval = cacheInterval;
@@ -61,7 +61,7 @@ class TraktEndpoint {
 		userID?: string,
 		extraHeaders?: Record<string, string>
 	) {
-		if (this.#cacheInterval <= -1)
+		if (!this.#cacheID || this.#cacheInterval <= -1)
 			return await this.traktFetch(options, pathParams, queryParams, accessToken, extraHeaders);
 
 		const cacheID = [
@@ -81,6 +81,11 @@ class TraktEndpoint {
 		accessToken?: string,
 		userID?: string
 	) {
+		if (!this.#cacheID || this.#cacheInterval <= -1) {
+			console.warn('Endpoint not cached:', this.#endpoint);
+			return;
+		}
+
 		// search for every this.#cacheID
 		const cacheID = [
 			this.#cacheID,
