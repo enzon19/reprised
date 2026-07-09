@@ -1,5 +1,5 @@
-import { BASE_URL, USER_AGENT } from '$env/static/private';
-import { PUBLIC_TRAKT_CLIENT_ID } from '$env/static/public';
+import { USER_AGENT } from '$env/static/private';
+import { PUBLIC_TRAKT_CLIENT_ID, PUBLIC_TRAKT_API_BASE_URL } from '$env/static/public';
 
 export class TraktEndpoint {
 	#cacheID?: string;
@@ -43,7 +43,7 @@ export class TraktEndpoint {
 		};
 
 		const path = pathParams ? this.buildPath(this.#endpoint, pathParams) : this.#endpoint;
-		const url = new URL(BASE_URL + path);
+		const url = new URL(PUBLIC_TRAKT_API_BASE_URL + path);
 
 		if (queryParams) {
 			for (const [key, value] of Object.entries(queryParams)) {
