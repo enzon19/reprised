@@ -1,4 +1,5 @@
-import { BASE_URL, TRAKT_ID, USER_AGENT } from '$env/static/private';
+import { BASE_URL, USER_AGENT } from '$env/static/private';
+import { PUBLIC_TRAKT_CLIENT_ID } from '$env/static/public';
 
 export class TraktEndpoint {
 	#cacheID?: string;
@@ -34,7 +35,7 @@ export class TraktEndpoint {
 			headers: {
 				'Content-Type': 'application/json',
 				'trakt-api-version': '2',
-				'trakt-api-key': TRAKT_ID,
+				'trakt-api-key': PUBLIC_TRAKT_CLIENT_ID,
 				'User-Agent': USER_AGENT,
 				...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
 				...extraHeaders
