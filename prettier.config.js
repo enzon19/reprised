@@ -4,6 +4,8 @@ const config = {
 	singleQuote: true,
 	trailingComma: 'none',
 	printWidth: 100,
+	bracketSameLine: true,
+	endOfLine: 'lf',
 	plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
 	overrides: [{ files: '*.svelte', options: { parser: 'svelte' } }],
 	tailwindStylesheet: './src/routes/layout.css'
