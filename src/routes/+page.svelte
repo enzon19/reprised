@@ -1,2 +1,9 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+	import { PUBLIC_TRAKT_CLIENT_ID, PUBLIC_BASE_URL } from '$env/static/public';
+</script>
+
+<a
+	class="bg-red-400 py-2 px-4 cursor-pointer m-4 inline-block rounded-lg"
+	href="https://trakt.tv/oauth/authorize?response_type=code&client_id={PUBLIC_TRAKT_CLIENT_ID}&redirect_uri={PUBLIC_BASE_URL}/authorized"
+	>Login with Trakt</a
+>
