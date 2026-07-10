@@ -1,7 +1,11 @@
-import { TraktEndpoint } from '.';
+import { TraktEndpoint, type ExtendedInfo } from '.';
 import type * as types from './types';
 
-export async function getUserProfile(slug: 'me' | string, accessToken: string, extended?: 'vip') {
+export async function getUserProfile(
+	slug: 'me' | string,
+	accessToken: string,
+	extended?: ExtendedInfo | 'vip' | 'images,vip' | 'full,vip'
+) {
 	const endpoint = new TraktEndpoint('/users/{id}');
 
 	const response = await endpoint.traktFetch(
@@ -12,8 +16,8 @@ export async function getUserProfile(slug: 'me' | string, accessToken: string, e
 			id: slug
 		},
 		{
-      extended
-    },
+			extended
+		},
 		accessToken
 	);
 

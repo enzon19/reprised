@@ -7,6 +7,8 @@ const redis = new Redis({
 	token: UPSTASH_REDIS_REST_TOKEN
 });
 
+export type ExtendedInfo = 'full' | 'images' | 'min';
+
 export class TraktEndpoint {
 	#cacheID?: string;
 	#cacheInterval: number; // segundos
