@@ -1,9 +1,15 @@
-import { USER_AGENT } from '$env/static/private';
+import { USER_AGENT, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } from '$env/static/private';
 import { PUBLIC_TRAKT_CLIENT_ID, PUBLIC_TRAKT_API_BASE_URL } from '$env/static/public';
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+	url: UPSTASH_REDIS_REST_URL,
+	token: UPSTASH_REDIS_REST_TOKEN
+});
 
 export class TraktEndpoint {
 	#cacheID?: string;
-	#cacheInterval: number;
+	#cacheInterval: number; // segundos
 	#cacheVersion: number;
 	#endpoint: string;
 
@@ -65,15 +71,34 @@ export class TraktEndpoint {
 		if (!this.#cacheID || this.#cacheInterval <= -1)
 			return await this.traktFetch(options, pathParams, queryParams, accessToken, extraHeaders);
 
-		const cacheID = [
+		const cacheKey = [
+			'v' + this.#cacheVersion,
 			this.#cacheID,
 			...Object.values(pathParams ?? {}),
 			...Object.entries(queryParams ?? {}),
 			...(userID ? [userID] : [])
 		].join(':');
-		console.log('get cache', cacheID);
-		// check if it's too old or the version is wrong. if so, traktFetch and new cache, if not return cache without _cache_version and _cache_last_updated
-		return await this.traktFetch(options, pathParams, queryParams, accessToken, extraHeaders);
+		console.log('get cache', cacheKey);
+		const cache = redis.get(cacheKey);
+		console.log('cache return', cache);
+
+		if (cache) {
+			return cache;
+		} else {
+			const response = await this.traktFetch(
+				options,
+				pathParams,
+				queryParams,
+				accessToken,
+				extraHeaders
+			);
+
+			if (response.status == 200) {
+				redis.set(cacheKey, await response.json(), { ex: this.#cacheInterval });
+			}
+
+			return response;
+		}
 	}
 
 	clearCache(
@@ -89,6 +114,7 @@ export class TraktEndpoint {
 
 		// search for every this.#cacheID
 		const cacheID = [
+			'v' + this.#cacheVersion,
 			this.#cacheID,
 			...Object.values(pathParams ?? {}),
 			...Object.entries(queryParams ?? {}),
