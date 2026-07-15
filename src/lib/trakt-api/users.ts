@@ -53,3 +53,28 @@ export async function retrieveSettings(
 		throw responseAsJSON as Record<any, any>;
 	}
 }
+
+export async function getStats(
+	slug: 'me' | string,
+	accessToken: string
+) {
+	const endpoint = new TraktEndpoint('/users/{id}/stats');
+
+	const response = await endpoint.traktFetch(
+		{
+			method: 'GET'
+		},
+		{
+			id: slug
+		},
+		undefined,
+		accessToken
+	);
+
+	const responseAsJSON = await response.json();
+	if (response.ok) {
+		return responseAsJSON as types.GetUsersStatsResponse200;
+	} else {
+		throw responseAsJSON as Record<any, any>;
+	}
+}
