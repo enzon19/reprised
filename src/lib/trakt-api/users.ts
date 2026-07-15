@@ -28,3 +28,28 @@ export async function getUserProfile(
 		throw responseAsJSON as Record<any, any>;
 	}
 }
+
+export async function retrieveSettings(
+	accessToken: string,
+	extended?: ExtendedInfo
+) {
+	const endpoint = new TraktEndpoint('/users/settings');
+
+	const response = await endpoint.traktFetch(
+		{
+			method: 'GET'
+		},
+		undefined,
+		{
+			extended
+		},
+		accessToken
+	);
+
+	const responseAsJSON = await response.json();
+	if (response.ok) {
+		return responseAsJSON as types.GetUsersSettingsResponse200;
+	} else {
+		throw responseAsJSON as Record<any, any>;
+	}
+}
