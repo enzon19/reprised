@@ -34309,16 +34309,19 @@ const GetUsersSettings = {
 						description: 'Extended information to include in the response.'
 					}
 				},
-				required: []
+				required: [],
+				additionalProperties: false
 			}
 		]
 	},
 	response: {
 		'200': {
 			type: 'object',
+			additionalProperties: false,
 			properties: {
 				user: {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						username: { type: 'string' },
 						private: { type: 'boolean' },
@@ -34328,6 +34331,7 @@ const GetUsersSettings = {
 						director: { type: 'boolean' },
 						ids: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								slug: { type: 'string' },
 								trakt: { type: 'integer' },
@@ -34342,9 +34346,11 @@ const GetUsersSettings = {
 						age: { type: 'integer' },
 						images: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								avatar: {
 									type: 'object',
+									additionalProperties: false,
 									properties: { full: { type: 'string' } },
 									required: ['full']
 								}
@@ -34371,6 +34377,7 @@ const GetUsersSettings = {
 				},
 				permissions: {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						commenting: { type: 'boolean' },
 						liking: { type: 'boolean' },
@@ -34380,6 +34387,7 @@ const GetUsersSettings = {
 				},
 				browsing: {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						watch_popup_action: {
 							type: 'string',
@@ -34400,6 +34408,7 @@ const GetUsersSettings = {
 						hide_unsaved_filters_prompt: { type: 'boolean' },
 						spoilers: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								episodes: { type: 'string' },
 								shows: { type: 'string' },
@@ -34411,6 +34420,7 @@ const GetUsersSettings = {
 						},
 						calendar: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								period: { type: 'string' },
 								start_day: { type: 'string' },
@@ -34423,9 +34433,11 @@ const GetUsersSettings = {
 						},
 						progress: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								on_deck: {
 									type: 'object',
+									additionalProperties: false,
 									properties: {
 										sort: {
 											type: 'string',
@@ -34471,6 +34483,7 @@ const GetUsersSettings = {
 								},
 								watched: {
 									type: 'object',
+									additionalProperties: false,
 									properties: {
 										refresh: { type: 'boolean' },
 										simple_progress: { type: 'boolean' },
@@ -34499,6 +34512,7 @@ const GetUsersSettings = {
 								},
 								collected: {
 									type: 'object',
+									additionalProperties: false,
 									properties: {
 										refresh: { type: 'boolean' },
 										simple_progress: { type: 'boolean' },
@@ -34530,6 +34544,7 @@ const GetUsersSettings = {
 						},
 						watchnow: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								country: { type: 'string' },
 								favorites: { type: 'array', items: { type: 'string' } },
@@ -34541,6 +34556,7 @@ const GetUsersSettings = {
 						app_theme: { type: 'string' },
 						welcome: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								completed_at: { type: 'string' },
 								exit_step: { type: 'string', format: 'null' }
@@ -34549,6 +34565,7 @@ const GetUsersSettings = {
 						},
 						genres: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								favorites: { type: 'array', items: { type: 'string' } },
 								disliked: { type: 'array', items: { type: 'string' } }
@@ -34556,11 +34573,13 @@ const GetUsersSettings = {
 						},
 						comments: {
 							type: 'object',
+							additionalProperties: false,
 							properties: { blocked_uids: { type: 'array', items: { type: 'integer' } } },
 							required: ['blocked_uids']
 						},
 						recommendations: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								ignore_collected: { type: 'boolean' },
 								ignore_watchlisted: { type: 'boolean' }
@@ -34569,14 +34588,17 @@ const GetUsersSettings = {
 						},
 						rewatching: {
 							type: 'object',
+							additionalProperties: false,
 							properties: { adjust_percentage: { type: 'boolean' } },
 							required: ['adjust_percentage']
 						},
 						profile: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								favorites: {
 									type: 'object',
+									additionalProperties: false,
 									properties: {
 										sort_by: { type: 'string' },
 										sort_how: { type: 'string', enum: ['asc', 'desc'], description: '`asc` `desc`' }
@@ -34585,11 +34607,13 @@ const GetUsersSettings = {
 								},
 								most_watched_shows: {
 									type: 'object',
+									additionalProperties: false,
 									properties: { sort_by: { type: 'string' }, tab: { type: 'string' } },
 									required: ['sort_by', 'tab']
 								},
 								most_watched_movies: {
 									type: 'object',
+									additionalProperties: false,
 									properties: { sort_by: { type: 'string' }, tab: { type: 'string' } },
 									required: ['sort_by', 'tab']
 								}
@@ -34598,12 +34622,14 @@ const GetUsersSettings = {
 						},
 						search: {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								image_type: { type: 'string' },
 								recent_queries: {
 									type: 'array',
 									items: {
 										type: 'object',
+										additionalProperties: false,
 										properties: {
 											query: { type: 'string' },
 											type: { type: 'string' },
@@ -34638,6 +34664,7 @@ const GetUsersSettings = {
 				},
 				account: {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						timezone: { type: 'string' },
 						date_format: { type: 'string' },
@@ -34650,6 +34677,7 @@ const GetUsersSettings = {
 				},
 				connections: {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						facebook: { type: 'boolean' },
 						twitter: { type: 'boolean' },
@@ -34665,6 +34693,7 @@ const GetUsersSettings = {
 				},
 				sharing_text: {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						watching: { type: 'string' },
 						watched: { type: 'string' },
@@ -34674,19 +34703,23 @@ const GetUsersSettings = {
 				},
 				limits: {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						list: {
 							type: 'object',
+							additionalProperties: false,
 							properties: { count: { type: 'integer' }, item_count: { type: 'integer' } },
 							required: ['count', 'item_count']
 						},
 						watchlist: {
 							type: 'object',
+							additionalProperties: false,
 							properties: { item_count: { type: 'integer' } },
 							required: ['item_count']
 						},
 						favorites: {
 							type: 'object',
+							additionalProperties: false,
 							properties: { item_count: { type: 'integer' } },
 							required: ['item_count']
 						}
