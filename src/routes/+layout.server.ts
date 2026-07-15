@@ -9,7 +9,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 	try {
 		if (!accessToken) throw new Error(); // try to force update
 
-		const currentUserSettings = await retrieveSettings(accessToken, 'images'); // might have access_token, but maybe it's expired, throwing an error
+		const currentUserSettings = await retrieveSettings(accessToken, 'browsing'); // might have access_token, but maybe it's expired, throwing an error
 		return currentUserSettings;
 	} catch (e) {
 		if (!refreshToken) return;
@@ -33,7 +33,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 				maxAge: 60 * 60 * 24 * 365 // 1 year
 			});
 
-			const currentUserSettings = await retrieveSettings(tokens.access_token, 'images'); // might have access_token, but maybe it's expired, throwing an error
+			const currentUserSettings = await retrieveSettings(tokens.access_token, 'browsing'); // might have access_token, but maybe it's expired, throwing an error
 			return currentUserSettings;
 		} catch (refreshError) {
 			console.error('Token refresh failed:', refreshError);
