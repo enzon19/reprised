@@ -21,6 +21,7 @@
 		"@sveltejs/kit": "^2.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@tailwindcss/vite": "^4.3.0",
+		"@types/luxon": "^3.7.2",
 		"@vitest/browser-playwright": "^4.1.8",
 		"json-schema-to-ts": "^3.1.1",
 		"playwright": "^1.60.0",
@@ -36,6 +37,7 @@
 		"vitest-browser-svelte": "^2.1.1"
 	},
 	"dependencies": {
-		"@upstash/redis": "^1.38.0"
+		"@upstash/redis": "^1.38.0",
+		"luxon": "^3.7.2"
 	}
 }
