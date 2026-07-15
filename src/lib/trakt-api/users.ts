@@ -1,10 +1,11 @@
-import { TraktEndpoint, type ExtendedInfo } from '.';
+import { generateExtendedQuery, TraktEndpoint, type ExtendedInfo } from '.';
 import type * as types from './types';
 
+type ExtendedInfoUserProfile = ExtendedInfo | 'vip';
 export async function getUserProfile(
 	slug: 'me' | string,
 	accessToken: string,
-	extended?: ExtendedInfo | 'vip' | 'images,vip' | 'full,vip'
+	extended?: ExtendedInfoUserProfile | ExtendedInfoUserProfile[]
 ) {
 	const endpoint = new TraktEndpoint('/users/{id}');
 
@@ -16,7 +17,7 @@ export async function getUserProfile(
 			id: slug
 		},
 		{
-			extended
+			extended: generateExtendedQuery(extended)
 		},
 		accessToken
 	);
@@ -29,9 +30,10 @@ export async function getUserProfile(
 	}
 }
 
+type ExtendedInfoUserSettings = ExtendedInfo | 'browsing';
 export async function retrieveSettings(
 	accessToken: string,
-	extended?: ExtendedInfo
+	extended?: ExtendedInfoUserSettings | ExtendedInfoUserSettings[]
 ) {
 	const endpoint = new TraktEndpoint('/users/settings');
 
@@ -41,7 +43,7 @@ export async function retrieveSettings(
 		},
 		undefined,
 		{
-			extended
+			extended: generateExtendedQuery(extended)
 		},
 		accessToken
 	);
@@ -54,10 +56,7 @@ export async function retrieveSettings(
 	}
 }
 
-export async function getStats(
-	slug: 'me' | string,
-	accessToken: string
-) {
+export async function getStats(slug: 'me' | string, accessToken: string) {
 	const endpoint = new TraktEndpoint('/users/{id}/stats');
 
 	const response = await endpoint.traktFetch(

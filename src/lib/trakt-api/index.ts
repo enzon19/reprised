@@ -9,6 +9,10 @@ const redis = new Redis({
 
 export type ExtendedInfo = 'full' | 'images' | 'min';
 
+export function generateExtendedQuery(extended?: string | string[]) {
+	return typeof extended == 'string' ? extended : extended?.join(',');
+}
+
 export class TraktEndpoint {
 	#cacheID?: string;
 	#cacheInterval: number; // segundos
